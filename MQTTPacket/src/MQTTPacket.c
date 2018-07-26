@@ -15,6 +15,7 @@
  *    Sergio R. Caprile - non-blocking packet read functions for stream transport
  *******************************************************************************/
 
+#include <user_interface.h>
 #include "StackTrace.h"
 #include "MQTTPacket.h"
 
@@ -175,7 +176,7 @@ void writeInt(unsigned char** pptr, int anInt)
  * @param pptr pointer to the output buffer - incremented by the number of bytes used & returned
  * @param string the C string to write
  */
-void writeCString(unsigned char** pptr, const char* string)
+void ICACHE_FLASH_ATTR writeCString(unsigned char** pptr, const char* string)
 {
 	int len = strlen(string);
 	writeInt(pptr, len);
@@ -191,7 +192,7 @@ int getLenStringLen(char* ptr)
 }
 
 
-void writeMQTTString(unsigned char** pptr, MQTTString mqttstring)
+void ICACHE_FLASH_ATTR writeMQTTString(unsigned char** pptr, MQTTString mqttstring)
 {
 	if (mqttstring.lenstring.len > 0)
 	{
@@ -212,7 +213,7 @@ void writeMQTTString(unsigned char** pptr, MQTTString mqttstring)
  * @param enddata pointer to the end of the data: do not read beyond
  * @return 1 if successful, 0 if not
  */
-int readMQTTLenString(MQTTString* mqttstring, unsigned char** pptr, unsigned char* enddata)
+int ICACHE_FLASH_ATTR readMQTTLenString(MQTTString* mqttstring, unsigned char** pptr, unsigned char* enddata)
 {
 	int rc = 0;
 
@@ -239,7 +240,7 @@ int readMQTTLenString(MQTTString* mqttstring, unsigned char** pptr, unsigned cha
  * @param mqttstring the string to return the length of
  * @return the length of the string
  */
-int MQTTstrlen(MQTTString mqttstring)
+int ICACHE_FLASH_ATTR MQTTstrlen(MQTTString mqttstring)
 {
 	int rc = 0;
 
@@ -257,7 +258,7 @@ int MQTTstrlen(MQTTString mqttstring)
  * @param bptr the C string to compare
  * @return boolean - equal or not
  */
-int MQTTPacket_equals(MQTTString* a, char* bptr)
+int ICACHE_FLASH_ATTR MQTTPacket_equals(MQTTString* a, char* bptr)
 {
 	int alen = 0,
 		blen = 0;

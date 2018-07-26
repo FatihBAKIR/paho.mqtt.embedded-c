@@ -14,7 +14,7 @@
  *    Ian Craggs - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-#if !defined(MQTT_LOGGING_H)
+#if false && !defined(MQTT_LOGGING_H)
 #define MQTT_LOGGING_H
 
 #define STREAM      stdout
@@ -51,5 +51,8 @@
     exit(1); \
     }
 #endif
-
 #endif
+
+#define WARN(...)
+#define DEBUG(...)
+#define ERROR(...)

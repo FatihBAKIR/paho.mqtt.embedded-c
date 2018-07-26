@@ -25,8 +25,7 @@
 #define MQTTCLIENT_H
 
 #include "FP.h"
-#include "MQTTPacket.h"
-#include <stdio.h>
+#include <MQTTPacket.h>
 #include "MQTTLogging.h"
 
 #if !defined(MQTTCLIENT_QOS1)
@@ -126,7 +125,7 @@ public:
     /** Set the default message handling callback - used for any message which does not match a subscription message handler
      *  @param mh - pointer to the callback function.  Set to 0 to remove.
      */
-    void setDefaultMessageHandler(messageHandler mh)
+    void ICACHE_FLASH_ATTR setDefaultMessageHandler(messageHandler mh)
     {
         if (mh != 0)
             defaultMessageHandler.attach(mh);
@@ -138,21 +137,21 @@ public:
      *  @param topicFilter - a topic pattern which can include wildcards
      *  @param mh - pointer to the callback function. If 0, removes the callback if any
      */
-    int setMessageHandler(const char* topicFilter, messageHandler mh);
+    int setMessageHandler(const char* topicFilter, messageHandler mh) ICACHE_FLASH_ATTR;
 
     /** MQTT Connect - send an MQTT connect packet down the network and wait for a Connack
      *  The nework object must be connected to the network endpoint before calling this
      *  Default connect options are used
      *  @return success code -
      */
-    int connect();
+    int connect() ICACHE_FLASH_ATTR;
 
     /** MQTT Connect - send an MQTT connect packet down the network and wait for a Connack
      *  The nework object must be connected to the network endpoint before calling this
      *  @param options - connect options
      *  @return success code -
      */
-    int connect(MQTTPacket_connectData& options);
+    int connect(MQTTPacket_connectData& options) ICACHE_FLASH_ATTR;
 
     /** MQTT Connect - send an MQTT connect packet down the network and wait for a Connack
      *  The nework object must be connected to the network endpoint before calling this
@@ -160,14 +159,14 @@ public:
      *  @param connackData - connack data to be returned
      *  @return success code -
      */
-    int connect(MQTTPacket_connectData& options, connackData& data);
+    int connect(MQTTPacket_connectData& options, connackData& data) ICACHE_FLASH_ATTR;
 
     /** MQTT Publish - send an MQTT publish packet and wait for all acks to complete for all QoSs
      *  @param topic - the topic to publish to
      *  @param message - the message to send
      *  @return success code -
      */
-    int publish(const char* topicName, Message& message);
+    int publish(const char* topicName, Message& message) ICACHE_FLASH_ATTR;
 
     /** MQTT Publish - send an MQTT publish packet and wait for all acks to complete for all QoSs
      *  @param topic - the topic to publish to
@@ -177,7 +176,7 @@ public:
      *  @param retained - whether the message should be retained
      *  @return success code -
      */
-    int publish(const char* topicName, void* payload, size_t payloadlen, enum QoS qos = QOS0, bool retained = false);
+    int publish(const char* topicName, void* payload, size_t payloadlen, enum QoS qos = QOS0, bool retained = false) ICACHE_FLASH_ATTR;
 
     /** MQTT Publish - send an MQTT publish packet and wait for all acks to complete for all QoSs
      *  @param topic - the topic to publish to
@@ -236,18 +235,18 @@ public:
 
 private:
 
-    void closeSession();
-    void cleanSession();
-    int cycle(Timer& timer);
-    int waitfor(int packet_type, Timer& timer);
-    int keepalive();
-    int publish(int len, Timer& timer, enum QoS qos);
+    void closeSession() ICACHE_FLASH_ATTR;
+    void cleanSession() ICACHE_FLASH_ATTR;
+    int cycle(Timer& timer) ICACHE_FLASH_ATTR;
+    int waitfor(int packet_type, Timer& timer) ICACHE_FLASH_ATTR;
+    int keepalive() ICACHE_FLASH_ATTR;
+    int publish(int len, Timer& timer, enum QoS qos) ICACHE_FLASH_ATTR;
 
-    int decodePacket(int* value, int timeout);
-    int readPacket(Timer& timer);
-    int sendPacket(int length, Timer& timer);
-    int deliverMessage(MQTTString& topicName, Message& message);
-    bool isTopicMatched(char* topicFilter, MQTTString& topicName);
+    int decodePacket(int* value, int timeout) ICACHE_FLASH_ATTR;
+    int readPacket(Timer& timer) ICACHE_FLASH_ATTR;
+    int sendPacket(int length, Timer& timer) ICACHE_FLASH_ATTR;
+    int deliverMessage(MQTTString& topicName, Message& message) ICACHE_FLASH_ATTR;
+    bool isTopicMatched(char* topicFilter, MQTTString& topicName) ICACHE_FLASH_ATTR;
 
     Network& ipstack;
     unsigned long command_timeout_ms;
