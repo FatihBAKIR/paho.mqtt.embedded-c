@@ -25,3 +25,6 @@ add_library(MQTTPacketServer MQTTFormat MQTTPacket
             MQTTSerializePublish MQTTDeserializePublish
             MQTTConnectServer MQTTSubscribeServer MQTTUnsubscribeServer)
 target_compile_definitions(MQTTPacketServer PRIVATE MQTT_SERVER)
+target_link_libraries(MQTTPacketServer PUBLIC tos_core)
+target_include_directories(MQTTPacketServer PUBLIC .)
+

@@ -2,7 +2,7 @@ project(tos_mqtt)
 
 add_library(paho_mqtt_private OBJECT stub.cpp MQTTClient.h MQTTLogging.h FP.h)
 
-add_library(paho_mqtt stub.cpp $<TARGET_OBJECTS:paho_mqtt_private>)
+add_library(paho_mqtt stub.cpp $<TARGET_OBJECTS:paho_mqtt_private> tos/adapters.hpp)
 target_link_libraries(paho_mqtt PUBLIC MQTTPacketClient tos_core)
 target_include_directories(paho_mqtt PUBLIC .)
 
